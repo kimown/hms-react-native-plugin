@@ -8,6 +8,15 @@ v18.19.0
 
 
 
+vi ~/.bashrc
+export NODE_OPTIONS=--openssl-legacy-provider
 
+cd android
+studio .
+
+
+
+adb reverse tcp:8081 tcp:8081
+npm start
 
 

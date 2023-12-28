@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "<package_name>"
+        applicationId "com.index.awesomeproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -147,10 +147,14 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('<keystore_file>')
-            keyAlias '<key_alias>'
-            keyPassword '<key_password>'
-            storePassword '<keystore_password>'
+//            storeFile file('debug.keystore')
+//            keyAlias '<key_alias>'
+//            keyPassword '<key_password>'
+//            storePassword '<keystore_password>'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
             v1SigningEnabled true
             v2SigningEnabled true
         }
@@ -180,12 +184,18 @@ android {
             }
         }
     }
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libfbjni.so'
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+        // com/github/hms-react-native-plugin/react-native-hms-awareness/example/node_modules/@hmscore/react-native-hms-awareness/android/build.gradle also need change 
+    implementation "com.facebook.react:react-native:0.60.0"  // From node_modules
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/"
@@ -201,6 +211,12 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.core:core:1.6.0'
+    }
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

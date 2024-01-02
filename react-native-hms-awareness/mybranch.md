@@ -6,7 +6,8 @@
 node -v
 v18.19.0
 
-
+ which java
+/media/google/Data/com/mdk/jdk1.8.0_271/bin/java
 
 vi ~/.bashrc
 export NODE_OPTIONS=--openssl-legacy-provider
